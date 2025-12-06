@@ -26,8 +26,8 @@ using (var scope = app.Services.CreateScope())
     if (!db.Users.Any())
     {
         db.Users.AddRange(
-            new User { Id = Guid.NewGuid(), Name = "Alice", Email = "alice@example.com" },
-            new User { Id = Guid.NewGuid(), Name = "Bob",   Email = "bob@example.com" }
+            new User { Id = 1, Name = "Alice", Email = "alice@example.com" },
+            new User { Id = 2, Name = "Bob",   Email = "bob@example.com" }
         );
         db.SaveChanges();
     }

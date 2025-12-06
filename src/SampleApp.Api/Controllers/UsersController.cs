@@ -31,8 +31,8 @@ public class UsersController : ControllerBase
     }
 
     // GET: api/users/{id}
-    [HttpGet("{id:guid}")]
-    public async Task<ActionResult<UserDto>> GetById(Guid id)
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<UserDto>> GetById(int id)
     {
         var user = await _userRepository.GetByIdAsync(id);
         if (user == null)
@@ -50,7 +50,7 @@ public class UsersController : ControllerBase
     {
         var entity = new User
         {
-            Id = request.Id == Guid.Empty ? Guid.NewGuid() : request.Id,
+            Id = request.Id,
             Name = request.Name,
             Email = request.Email
         };
