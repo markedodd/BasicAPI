@@ -19,7 +19,7 @@ public class UserRepository : IUserRepository
         return await _db.Users.AsNoTracking().ToListAsync();
     }
 
-    public async Task<User?> GetByIdAsync(Guid id)
+    public async Task<User?> GetByIdAsync(int id)
     {
         return await _db.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
     }
