@@ -5,6 +5,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Models\**" />
+    <Content Remove="Models\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Models\**" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\SampleApp.Infrastructure\BasicApp.Infrastructure.csproj" />
 
    
@@ -18,8 +24,5 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\Dtos\" />
   </ItemGroup>
 </Project>
