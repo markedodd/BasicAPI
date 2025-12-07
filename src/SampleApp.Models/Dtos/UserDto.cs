@@ -1,4 +1,4 @@
-namespace BasicApp.Api.Models.Dtos;
+namespace BasicApp.Models.Dtos;
 
 public class UserDto
 {

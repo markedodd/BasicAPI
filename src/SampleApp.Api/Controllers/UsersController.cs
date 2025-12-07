@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using BasicApp.Api.Mapping;
-using BasicApp.Api.Models.Dtos;
-using BasicApp.Infrastructure.Repositories.Interfaces;
-using BasicApp.Models.Entities;
+using UserDto = BasicApp.Models.Dtos.UserDto;
+//using BasicApp.Models.Dtos;
+using BasicApp.Infrastructure.Services.Interfaces;
 
 namespace BasicApp.Api.Controllers;
 
@@ -10,23 +9,18 @@ namespace BasicApp.Api.Controllers;
 [Route("api/[controller]")]
 public class UsersController : ControllerBase
 {
-    private readonly IUserRepository _userRepository;
+    private readonly IUserService _userService;
 
-    public UsersController(IUserRepository userRepository)
+    public UsersController(IUserService userService)
     {
-        _userRepository = userRepository;
+        _userService = userService;
     }
 
     // GET: api/users
     [HttpGet]
     public async Task<ActionResult<IEnumerable<UserDto>>> GetAll()
     {
-        var users = await _userRepository.GetAllAsync();
-
-        var dtos = users
-            .Select(u => SimpleMapper.Map<User, UserDto>(u))
-            .ToList();
-
+        var dtos = await _userService.GetAllAsync();
         return Ok(dtos);
     }
 
@@ -34,13 +28,11 @@ public class UsersController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<ActionResult<UserDto>> GetById(int id)
     {
-        var user = await _userRepository.GetByIdAsync(id);
-        if (user == null)
+        var dto = await _userService.GetByIdAsync(id);
+        if (dto == null)
         {
             return NotFound();
         }
-
-        var dto = SimpleMapper.Map<User, UserDto>(user);
         return Ok(dto);
     }
 
@@ -48,16 +40,7 @@ public class UsersController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<UserDto>> Create([FromBody] UserDto request)
     {
-        var entity = new User
-        {
-            Id = request.Id,
-            Name = request.Name,
-            Email = request.Email
-        };
-
-        var created = await _userRepository.AddAsync(entity);
-        var dto = SimpleMapper.Map<User, UserDto>(created);
-
+        var dto = await _userService.AddAsync(request);
         return CreatedAtAction(nameof(GetById), new { id = dto.Id }, dto);
     }
 }
