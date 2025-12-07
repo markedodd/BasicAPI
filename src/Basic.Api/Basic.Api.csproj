@@ -11,8 +11,8 @@
     <None Remove="Models\**" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SampleApp.Infrastructure\Basic.Infrastructure.csproj" />
-    <ProjectReference Include="..\SampleApp.Models\Basic.Models.csproj" />
+    <ProjectReference Include="..\Basic.Infrastructure\Basic.Infrastructure.csproj" />
+    <ProjectReference Include="..\Basic.Models\Basic.Models.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
